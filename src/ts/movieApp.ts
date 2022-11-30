@@ -7,7 +7,7 @@ export const init = () => {
   let form = document.getElementById("searchForm") as HTMLFormElement;
   form.addEventListener("submit", (e: SubmitEvent) => {
     e.preventDefault();
-    handleSubmit();
+    exports.handleSubmit();
   });
 };
 
@@ -21,7 +21,7 @@ export async function handleSubmit() {
   container.innerHTML = "";
 
   try {
-    movies = await getData(searchText);
+    movies = await exports.getData(searchText);
 
     if (movies.length > 0) {
       exports.createHtml(movies, container);
@@ -35,6 +35,8 @@ export async function handleSubmit() {
 
 export const createHtml = (movies: IMovie[], container: HTMLDivElement) => {
   for (let i = 0; i < movies.length; i++) {
+    // console.log(movies);
+
     let movie = document.createElement("div");
     let title = document.createElement("h3");
     let img = document.createElement("img");
