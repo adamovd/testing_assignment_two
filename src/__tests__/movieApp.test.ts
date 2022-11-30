@@ -4,13 +4,13 @@
 
 import * as serviceFunctions from "../ts/services/movieservice";
 import * as movieAppFunction from "../ts/movieApp";
-import { IMovie } from "../ts/models/Movie";
 
 jest.mock("./../ts/services/movieservice.ts");
 
 describe("init", () => {
   test("should run handleSubmit on click", () => {
     //Arrange
+    expect.assertions(1);
     let spy = jest.spyOn(movieAppFunction, "handleSubmit").mockImplementation(
       () =>
         new Promise((resolve) => {
@@ -30,28 +30,13 @@ describe("init", () => {
 });
 
 describe("handleSubmit", () => {
-  test("should run function createHtml", async () => {
-    //Arrange
-    document.body.innerHTML = `<div id="movie-container"></div>`;
-    let container: HTMLDivElement = document.getElementById(
-      "movie-container"
-    ) as HTMLDivElement;
-    let searchText: string = "Matrix";
-    //Act
-    try {
-      await serviceFunctions.getData(searchText);
-    } catch (
-      e
-      //Assert
-    ) {
-      expect(e).toMatch("error");
-    }
-  });
+  test("should run createHtml if array contains movies", () => {});
 });
 
 describe("createHtml", () => {
   test("should create Html", async () => {
     //Arrange
+    expect.assertions(1);
     document.body.innerHTML = `<div id="movie-container"></div>`;
     let container: HTMLDivElement = document.getElementById(
       "movie-container"
@@ -68,6 +53,7 @@ describe("createHtml", () => {
 describe("displayNoResult", () => {
   test("should show text noMessage", () => {
     //Arrange
+    expect.assertions(1);
     document.body.innerHTML = `<div id="movie-container"></div>`;
     let container: HTMLDivElement = document.getElementById(
       "movie-container"

@@ -7,7 +7,7 @@ describe("movieSort", () => {
     //Arrange
     let movies: IMovie[] = mockData;
     //Act
-    movieSort(movies, true);
+    movieSort(movies);
     //Assert
     expect(movies[0].Title).toBe("Avengers");
   });
