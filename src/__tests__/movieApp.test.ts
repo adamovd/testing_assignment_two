@@ -75,6 +75,11 @@ describe("displayNoResult", () => {
 });
 
 describe("handleSubmit", () => {
+  beforeEach(() => {
+    jest.resetModules();
+    jest.restoreAllMocks();
+  });
+
   test("should run createHtml", async () => {
     //Arrange
     document.body.innerHTML = `<form id="searchForm">
@@ -89,10 +94,11 @@ describe("handleSubmit", () => {
     expect(spy).toHaveBeenCalled();
     document.body.innerHTML = "";
   });
+
   test("should run displayNoResult", async () => {
     //Arrange
     document.body.innerHTML = `<form id="searchForm">
-    <input type="text" id="searchText" placeholder="Skriv titel här" />
+    <input type="text" id="searchText" value="" placeholder="Skriv titel här" />
     <button type="submit" id="search">Sök</button>
     </form>
     <div id="movie-container"></div>`;

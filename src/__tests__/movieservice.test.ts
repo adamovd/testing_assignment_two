@@ -1,46 +1,47 @@
 import { IMovie } from "../ts/models/Movie";
 import { getData } from "../ts/services/movieservice";
 import { mockData } from "../ts/services/__mocks__/movieservice";
-import mockAxios from "axios";
-// const urlSearchParams = new URLSearchParams(window.location.search);
-// const s = Object.fromEntries(urlSearchParams.entries());
 
 jest.mock("axios", () => ({
   get: async (searchText: string) => {
     return new Promise((resolve, reject) => {
-      if (searchText.length > 40) {
-        resolve({ data: { Search: mockData } });
+      let queryString: string = searchText;
+      let url: URLSearchParams = new URLSearchParams(queryString);
+      let s = url.get("s");
+      let newSearchText: string = `${s}`;
+      console.log(searchText);
+      if (newSearchText.length > 3) {
+        resolve({ movie: { Search: mockData } });
       } else {
-        reject({ data: [] });
+        reject({ movie: [] });
       }
     });
   },
 }));
 
 describe("getData", () => {
+  beforeEach(() => {
+    jest.resetModules();
+    jest.restoreAllMocks();
+  });
   test("should get mock data", async () => {
     //Arrange
     let searchText: string = "Matrix";
     //Act
-    let result = await getData(searchText);
+    let movies: IMovie[] = await getData(searchText);
+    console.log(movies);
+
     //Assert
-    expect(result.length).toBe(4);
-    expect(result[0].Year).toBe("1999");
-    expect(result[1].Title).toBe("Matrix");
-    expect(result[2].Type).toBe("movie");
+    expect(movies.length).toBe(4);
+    expect(movies[0].Year).toBe("1999");
   });
 
   test("should not get mock data", async () => {
     //Arrange
-    let searchText: string = "Matrix";
-    let movies: IMovie[] = [];
+    let searchText: string = "";
     //Act
-    try {
-      movies = await getData(searchText);
-    } catch (data: any) {
-      //Assert
-      console.log(data.data);
-      expect(data.data.length).toBe(0);
-    }
+    let movies: IMovie[] = await getData(searchText);
+    //Assert
+    expect(movies.length).toBe(0);
   });
 });
