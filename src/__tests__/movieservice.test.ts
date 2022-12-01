@@ -1,53 +1,46 @@
-/**
- *@jest-environment jsdom
- */
-
 import { IMovie } from "../ts/models/Movie";
 import { getData } from "../ts/services/movieservice";
-
-let mockData: IMovie[] = [
-  {
-    Title: "Star Wars: Episode IV - A New Hope",
-    imdbID: "tt0076759",
-    Type: "movie",
-    Poster: "img_source",
-    Year: "1977",
-  },
-  {
-    Title: "Star Wars: Episode V - The Empire Strikes Back",
-    imdbID: "tt0076759",
-    Type: "movie",
-    Poster: "img_source",
-    Year: "1980",
-  },
-  {
-    Title: "Star Wars: Episode VI - Return of the Jedi",
-    imdbID: "tt0076759",
-    Type: "movie",
-    Poster: "img_source",
-    Year: "1983",
-  },
-];
+import { mockData } from "../ts/services/__mocks__/movieservice";
+import mockAxios from "axios";
+// const urlSearchParams = new URLSearchParams(window.location.search);
+// const s = Object.fromEntries(urlSearchParams.entries());
 
 jest.mock("axios", () => ({
-  get: async () => {
-    return new Promise((resolve) => {
-      resolve({ data: { Search: mockData } });
+  get: async (searchText: string) => {
+    return new Promise((resolve, reject) => {
+      if (searchText.length > 40) {
+        resolve({ data: { Search: mockData } });
+      } else {
+        reject({ data: [] });
+      }
     });
   },
 }));
 
-test("should get mock data", async () => {
-  //Arrange
-  expect.assertions(4);
-  let searchText: string = "Star Wars: Episode X - The Return of the Fart";
-  //Act
-  let result = await getData(searchText);
-  //Assert
-  expect(result.length).toBe(3);
-  expect(result[0].Year).toBe("1977");
-  expect(result[1].Title).toBe(
-    "Star Wars: Episode V - The Empire Strikes Back"
-  );
-  expect(result[2].Type).toBe("movie");
+describe("getData", () => {
+  test("should get mock data", async () => {
+    //Arrange
+    let searchText: string = "Matrix";
+    //Act
+    let result = await getData(searchText);
+    //Assert
+    expect(result.length).toBe(4);
+    expect(result[0].Year).toBe("1999");
+    expect(result[1].Title).toBe("Matrix");
+    expect(result[2].Type).toBe("movie");
+  });
+
+  test("should not get mock data", async () => {
+    //Arrange
+    let searchText: string = "Matrix";
+    let movies: IMovie[] = [];
+    //Act
+    try {
+      movies = await getData(searchText);
+    } catch (data: any) {
+      //Assert
+      console.log(data.data);
+      expect(data.data.length).toBe(0);
+    }
+  });
 });
