@@ -10,7 +10,7 @@ jest.mock("axios", () => ({
       let s = url.get("s");
       let newSearchText: string = `${s}`;
       console.log(newSearchText);
-      if (newSearchText != "") {
+      if (newSearchText.length > 0) {
         resolve({ movie: { Search: mockData } });
       } else {
         reject({ movie: [] });
@@ -30,7 +30,6 @@ describe("getData", () => {
     //Act
     let movies: IMovie[] = await getData(searchText);
     console.log(movies);
-
     //Assert
     expect(movies.length).toBe(4);
     expect(movies[0].Year).toBe("1999");
