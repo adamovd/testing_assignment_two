@@ -18,6 +18,15 @@ describe("movieSort", () => {
     //Act
     movieSort(movies, false);
     //Assert
-    expect(movies[0].Title).toBe("Matrix");
+    expect(movies[0].Title).toEqual("Matrix");
+  });
+
+  test("should sort list with two equal values", () => {
+    //Arrange
+    let movies: IMovie[] = mockData;
+    //Act
+    movieSort(movies, false);
+    //Assert
+    expect(movies[0].Title).toEqual(movies[1].Title);
   });
 });

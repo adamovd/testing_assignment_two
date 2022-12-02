@@ -9,8 +9,8 @@ jest.mock("axios", () => ({
       let url: URLSearchParams = new URLSearchParams(queryString);
       let s = url.get("s");
       let newSearchText: string = `${s}`;
-      console.log(searchText);
-      if (newSearchText.length > 3) {
+      console.log(newSearchText);
+      if (newSearchText != "") {
         resolve({ movie: { Search: mockData } });
       } else {
         reject({ movie: [] });
@@ -39,9 +39,13 @@ describe("getData", () => {
   test("should not get mock data", async () => {
     //Arrange
     let searchText: string = "";
+    let moviesFail: IMovie[] = [];
     //Act
-    let movies: IMovie[] = await getData(searchText);
-    //Assert
-    expect(movies.length).toBe(0);
+    try {
+      moviesFail = await getData(searchText);
+    } catch (data: any) {
+      //Assert
+      expect(data.data.length).toBe(0);
+    }
   });
 });

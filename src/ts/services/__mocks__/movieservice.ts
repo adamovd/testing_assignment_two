@@ -9,18 +9,18 @@ export const mockData: IMovie[] = [
     Year: "1999",
   },
   {
-    Title: "Matrix",
-    imdbID: "tt0076759",
-    Type: "movie",
-    Poster: "img_source",
-    Year: "1999",
-  },
-  {
     Title: "Avengers",
     imdbID: "tt0076759",
     Type: "movie",
     Poster: "img_source",
     Year: "2011",
+  },
+  {
+    Title: "Matrix",
+    imdbID: "tt0076759",
+    Type: "movie",
+    Poster: "img_source",
+    Year: "1999",
   },
   {
     Title: "Leon",
