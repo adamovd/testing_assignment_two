@@ -5,6 +5,7 @@ import { mockData } from "../ts/services/__mocks__/movieservice";
 describe("movieSort", () => {
   test("should sort list a-z", () => {
     //Arrange
+    expect.assertions(1);
     let movies: IMovie[] = mockData;
     //Act
     movieSort(movies);
@@ -14,6 +15,7 @@ describe("movieSort", () => {
 
   test("should sort list z-a", () => {
     //Arrange
+    expect.assertions(1);
     let movies: IMovie[] = mockData;
     //Act
     movieSort(movies, false);
@@ -23,6 +25,7 @@ describe("movieSort", () => {
 
   test("should sort list with two equal values", () => {
     //Arrange
+    expect.assertions(1);
     let movies: IMovie[] = mockData;
     //Act
     movieSort(movies, false);

@@ -38,6 +38,7 @@ describe("handleSubmit", () => {
 
   test("should run createHtml if list contains movies", async () => {
     //Arrange
+    expect.assertions(1);
     document.body.innerHTML = `<form id="searchForm">
     <input type="text" id="searchText" value="Star" placeholder="Skriv titel här" />
     <button type="submit" id="search">Sök</button>
@@ -48,11 +49,11 @@ describe("handleSubmit", () => {
     await movieAppFunction.handleSubmit();
     //Assert
     expect(spy).toHaveBeenCalled();
-    document.body.innerHTML = "";
   });
 
   test("should run displayNoResult because of empty list", async () => {
     //Arrange
+    expect.assertions(1);
     document.body.innerHTML = `<form id="searchForm">
      <input type="text" id="searchText" value="Ma" placeholder="Skriv titel här" />
      <button type="submit" id="search">Sök</button>
@@ -63,11 +64,11 @@ describe("handleSubmit", () => {
     await movieAppFunction.handleSubmit();
     //Assert
     expect(spy).toHaveBeenCalled();
-    document.body.innerHTML = "";
   });
 
   test("should run displayNoResult because of error", async () => {
     //Arrange
+    expect.assertions(1);
     document.body.innerHTML = `<form id="searchForm">
     <input type="text" id="searchText" value="" placeholder="Skriv titel här" />
     <button type="submit" id="search">Sök</button>
@@ -78,10 +79,8 @@ describe("handleSubmit", () => {
     await movieAppFunction.handleSubmit();
     //Assert
     expect(spy).toHaveBeenCalled();
-    document.body.innerHTML = "";
   });
 });
-
 describe("createHtml", () => {
   beforeEach(() => {
     jest.resetModules();

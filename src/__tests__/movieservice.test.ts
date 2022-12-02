@@ -26,6 +26,7 @@ describe("getData", () => {
   });
   test("should get mock data", async () => {
     //Arrange
+    expect.assertions(3);
     let searchText: string = "Matrix";
     //Act
     let movies: IMovie[] = await getData(searchText);
@@ -33,6 +34,7 @@ describe("getData", () => {
     //Assert
     expect(movies.length).toBe(4);
     expect(movies[0].Year).toBe("1999");
+    expect(movies[1].Title).toBe("Avengers");
   });
 
   test("should not get mock data", async () => {
