@@ -11,9 +11,9 @@ jest.mock("axios", () => ({
       let newSearchText: string = `${s}`;
       console.log(newSearchText);
       if (newSearchText.length > 0) {
-        resolve({ movie: { Search: mockData } });
+        resolve({ data: { Search: mockData } });
       } else {
-        reject({ movie: [] });
+        reject({ data: [] });
       }
     });
   },

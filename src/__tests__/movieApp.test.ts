@@ -51,7 +51,20 @@ describe("handleSubmit", () => {
     document.body.innerHTML = "";
   });
 
-  test("should run displayNoResult because of empty list", () => {});
+  test("should run displayNoResult because of empty list", async () => {
+    //Arrange
+    document.body.innerHTML = `<form id="searchForm">
+     <input type="text" id="searchText" value="Ma" placeholder="Skriv titel här" />
+     <button type="submit" id="search">Sök</button>
+     </form>
+     <div id="movie-container"></div>`;
+    let spy = jest.spyOn(movieAppFunction, "displayNoResult").mockReturnValue();
+    //Act
+    await movieAppFunction.handleSubmit();
+    //Assert
+    expect(spy).toHaveBeenCalled();
+    document.body.innerHTML = "";
+  });
 
   test("should run displayNoResult because of error", async () => {
     //Arrange

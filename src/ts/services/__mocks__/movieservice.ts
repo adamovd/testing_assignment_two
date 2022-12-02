@@ -34,7 +34,7 @@ export const mockData: IMovie[] = [
 export const getData = async (searchText: string): Promise<IMovie[]> => {
   return new Promise((resolve, reject) => {
     if (searchText !== "") {
-      if (searchText.length > 0) {
+      if (searchText.length > 3) {
         resolve(mockData);
       } else {
         reject([]);
