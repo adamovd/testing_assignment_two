@@ -40,10 +40,9 @@ describe("getData", () => {
   test("should not get mock data", async () => {
     //Arrange
     let searchText: string = "";
-    let moviesFail: IMovie[] = [];
     //Act
     try {
-      moviesFail = await getData(searchText);
+      await getData(searchText);
     } catch (data: any) {
       //Assert
       expect(data.data.length).toBe(0);
